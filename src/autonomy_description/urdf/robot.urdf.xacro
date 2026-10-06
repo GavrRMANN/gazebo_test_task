@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<robot
+    name="autonomy_robot"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- ========================================================= -->
+    <!-- Base dimensions                                           -->
+    <!-- ========================================================= -->
+
+    <xacro:property
+        name="base_length"
+        value="0.45"/>
+
+    <xacro:property
+        name="base_width"
+        value="0.32"/>
+
+    <xacro:property
+        name="base_height"
+        value="0.12"/>
+
+    <xacro:property
+        name="base_mass"
+        value="8.0"/>
+
+    <!-- Base center height above ground -->
+    <xacro:property
+        name="base_center_z"
+        value="0.10"/>
+
+    <!-- ========================================================= -->
+    <!-- Wheels                                                    -->
+    <!-- ========================================================= -->
+
+    <xacro:property
+        name="wheel_radius"
+        value="0.07"/>
+
+    <xacro:property
+        name="wheel_width"
+        value="0.03"/>
+
+    <xacro:property
+        name="wheel_mass"
+        value="0.8"/>
+
+    <!-- Distance between left and right wheel centers -->
+    <xacro:property
+        name="wheel_separation"
+        value="0.35"/>
+
+    <xacro:property
+        name="wheel_y"
+        value="${wheel_separation / 2.0}"/>
+
+
+    <!-- Distance between front and rear wheel centers -->
+    <xacro:property
+        name="wheel_base"
+        value="0.32"/>
+
+    <xacro:property
+        name="wheel_x"
+        value="${wheel_base / 2.0}"/>
+
+
+    <!-- Wheel center relative to base_link -->
+    <xacro:property
+        name="wheel_z"
+        value="${wheel_radius - base_center_z}"/>
+
+    <!-- wheel center relative to base_link -->
+    <xacro:property
+        name="wheel_z"
+        value="${wheel_radius - base_center_z}"/>
+
+    <!-- ========================================================= -->
+    <!-- Include sub-models                                        -->
+    <!-- ========================================================= -->
+
+    <xacro:include
+        filename="$(find autonomy_description)/urdf/base.xacro"/>
+
+    <xacro:include
+        filename="$(find autonomy_description)/urdf/sensors.xacro"/>
+
+    <xacro:include
+        filename="$(find autonomy_description)/urdf/gazebo_plugins.xacro"/>
+
+    <!-- ========================================================= -->
+    <!-- Build robot                                               -->
+    <!-- ========================================================= -->
+
+    <xacro:mobile_base/>
+
+    <xacro:sensor_suite/>
+
+    <xacro:gazebo_plugins/>
+
+</robot>

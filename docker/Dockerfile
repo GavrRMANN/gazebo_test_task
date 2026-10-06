@@ -24,7 +24,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     rm -f /etc/apt/apt.conf.d/docker-clean && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        ros-humble-gazebo-ros-pkgs
+        ros-humble-gazebo-ros-pkgs \
+        ros-humble-xacro
 
 ENV DISPLAY=:1
 ENV LIBGL_ALWAYS_SOFTWARE=1
