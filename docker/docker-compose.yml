@@ -1,0 +1,72 @@
+name: gazebo-autonomy-test
+
+services:
+
+  ros:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+
+    image: gazebo-autonomy-test:humble
+
+    container_name: gazebo-autonomy-test
+
+    working_dir: /workspace
+
+    environment:
+      DISPLAY: ":1"
+      LIBGL_ALWAYS_SOFTWARE: "1"
+      ROS_DOMAIN_ID: "42"
+
+    ports:
+      - "6080:6080"
+
+    volumes:
+
+      - ../:/workspace
+
+      - ros_build:/workspace/build
+      - ros_install:/workspace/install
+      - ros_log:/workspace/log
+
+    shm_size: "2gb"
+
+    stdin_open: true
+    tty: true
+
+    command:
+      - bash
+      - -lc
+      - |
+        Xvfb :1 -screen 0 1600x900x24 &
+        sleep 2
+
+        fluxbox &
+        sleep 1
+
+        x11vnc \
+          -display :1 \
+          -forever \
+          -shared \
+          -nopw \
+          -rfbport 5900 &
+
+        websockify \
+          --web=/usr/share/novnc \
+          6080 \
+          localhost:5900 &
+
+        echo ""
+        echo "=========================================="
+        echo " GUI available at:"
+        echo " http://localhost:6080/vnc.html"
+        echo "=========================================="
+        echo ""
+
+        sleep infinity
+
+
+volumes:
+  ros_build:
+  ros_install:
+  ros_log:

@@ -1,0 +1,36 @@
+# ROS / colcon
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# Gazebo
+.gazebo/
+
+# ROS bags
+bags/*
+!bags/.gitkeep
+rosbag2_*/
+*.db3
+*.mcap
+
+# Secrets
+.env
+*.env
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Temporary
+*.tmp
+*.swp
+*~
