@@ -45,7 +45,7 @@
         name="wheel_mass"
         value="0.8"/>
 
-    <!-- Distance between left and right wheel centers -->
+    <!-- Left-right distance -->
     <xacro:property
         name="wheel_separation"
         value="0.35"/>
@@ -54,8 +54,7 @@
         name="wheel_y"
         value="${wheel_separation / 2.0}"/>
 
-
-    <!-- Distance between front and rear wheel centers -->
+    <!-- Front-rear distance -->
     <xacro:property
         name="wheel_base"
         value="0.32"/>
@@ -64,13 +63,7 @@
         name="wheel_x"
         value="${wheel_base / 2.0}"/>
 
-
-    <!-- Wheel center relative to base_link -->
-    <xacro:property
-        name="wheel_z"
-        value="${wheel_radius - base_center_z}"/>
-
-    <!-- wheel center relative to base_link -->
+    <!-- Relative to base_link -->
     <xacro:property
         name="wheel_z"
         value="${wheel_radius - base_center_z}"/>
