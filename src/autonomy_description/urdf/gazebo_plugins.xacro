@@ -4,61 +4,72 @@
 
     <xacro:macro name="gazebo_plugins">
 
-        <!-- ========================================================= -->
-        <!-- Materials / contact                                       -->
-        <!-- ========================================================= -->
-
         <gazebo reference="base_link">
             <material>Gazebo/Blue</material>
         </gazebo>
 
-
-        <!--
-            Four-wheel skid-steer.
-
-            Higher longitudinal friction and lower lateral friction
-            let the wheels roll normally while still allowing the robot
-            to skid sideways slightly during rotation.
-        -->
-
         <gazebo reference="front_left_wheel_link">
+
             <material>Gazebo/Black</material>
 
+            <!--
+                X = rolling direction
+                Y = lateral sliding direction
+            -->
+
+            <fdir1>1 0 0</fdir1>
+
             <mu1>1.0</mu1>
-            <mu2>0.25</mu2>
+            <mu2>0.05</mu2>
 
             <kp>1000000.0</kp>
             <kd>100.0</kd>
+
         </gazebo>
+
 
         <gazebo reference="front_right_wheel_link">
+
             <material>Gazebo/Black</material>
 
+            <fdir1>1 0 0</fdir1>
+
             <mu1>1.0</mu1>
-            <mu2>0.25</mu2>
+            <mu2>0.05</mu2>
 
             <kp>1000000.0</kp>
             <kd>100.0</kd>
+
         </gazebo>
+
 
         <gazebo reference="rear_left_wheel_link">
+
             <material>Gazebo/Black</material>
 
+            <fdir1>1 0 0</fdir1>
+
             <mu1>1.0</mu1>
-            <mu2>0.25</mu2>
+            <mu2>0.05</mu2>
 
             <kp>1000000.0</kp>
             <kd>100.0</kd>
+
         </gazebo>
 
+
         <gazebo reference="rear_right_wheel_link">
+
             <material>Gazebo/Black</material>
 
+            <fdir1>1 0 0</fdir1>
+
             <mu1>1.0</mu1>
-            <mu2>0.25</mu2>
+            <mu2>0.05</mu2>
 
             <kp>1000000.0</kp>
             <kd>100.0</kd>
+
         </gazebo>
 
 

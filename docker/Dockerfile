@@ -27,6 +27,15 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ros-humble-gazebo-ros-pkgs \
         ros-humble-xacro
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-humble-navigation2 \
+    ros-humble-nav2-bringup \
+    ros-humble-nav2-simple-commander \
+    ros-humble-slam-toolbox \
+    ros-humble-robot-localization \
+    ros-humble-tf2-tools \
+    && rm -rf /var/lib/apt/lists/*
+
 ENV DISPLAY=:1
 ENV LIBGL_ALWAYS_SOFTWARE=1
 ENV ROS_DOMAIN_ID=42
