@@ -113,11 +113,11 @@ AMCL и SLAM одновременно запускать не нужно: оба
 оставив контейнер работающим, затем выполнить:
 
 ```bash
-docker exec gazebo-autonomy-test bash -lc 'source /opt/ros/humble/setup.bash; source /opt/tf2_compat/setup.bash; python3 /workspace/scripts/check_navigation.py --runs 3'
+docker exec gazebo-autonomy-test bash -lc 'source /opt/ros/humble/setup.bash; source /opt/tf2_compat/setup.bash; python3 /workspace/scripts/check_navigation.py --runs 3 --report /tmp/maze_validation.json'
 ```
 
 Скрипт проверяет прибытие, сообщения сенсоров, зазор и физические контакты.
-Контакт колёс с полом разрешён. Результаты сохраняются в `.ai/maze_validation.json`.
+Контакт колёс с полом разрешён. Результаты сохраняются в `/tmp/maze_validation.json`.
 Есть 18 тестов для GPS-проекции, маршрута, карты и проверки столкновений.
 
 ## Особенности окружения
