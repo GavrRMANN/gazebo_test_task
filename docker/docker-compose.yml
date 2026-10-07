@@ -3,6 +3,7 @@ name: gazebo-autonomy-test
 services:
 
   ros:
+    platform: linux/amd64
     build:
       context: ..
       dockerfile: docker/Dockerfile

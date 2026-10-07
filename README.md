@@ -38,12 +38,29 @@
 .\scripts\stop.ps1
 ```
 
-На Linux:
+На Linux нужен Docker Engine с Compose, на macOS — запущенный Docker Desktop.
+Команда одинаковая для обеих систем:
 
 ```bash
-docker compose -f docker/docker-compose.yml up -d --build --force-recreate
-docker exec -it gazebo-autonomy-test bash /workspace/scripts/run_demo.sh
+bash scripts/run_demo_host.sh
 ```
+
+Повторный запуск без сборки образа и запуск без окон:
+
+```bash
+bash scripts/run_demo_host.sh --skip-image-build
+bash scripts/run_demo_host.sh --skip-image-build --headless
+```
+
+Окна доступны по тому же адресу localhost:6080. `Ctrl+C` останавливает симуляцию.
+Чтобы остановить контейнер, из корня проекта выполнить:
+
+```bash
+docker compose -f docker/docker-compose.yml down
+```
+
+Образ использует linux/amd64. На Mac с Apple Silicon он запускается через
+эмуляцию, поэтому сборка и симуляция могут работать медленнее.
 
 ## Как устроена навигация
 
