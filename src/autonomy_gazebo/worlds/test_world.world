@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+
+<sdf version="1.6">
+
+    <world name="autonomy_world">
+
+        <spherical_coordinates>
+
+            <surface_model>
+                EARTH_WGS84
+            </surface_model>
+
+            <latitude_deg>
+                55.0
+            </latitude_deg>
+
+            <longitude_deg>
+                37.0
+            </longitude_deg>
+
+            <elevation>
+                100.0
+            </elevation>
+
+            <heading_deg>
+                0.0
+            </heading_deg>
+
+        </spherical_coordinates>
+
+        <physics name="ode_physics" type="ode">
+            <max_step_size>0.001</max_step_size>
+            <real_time_update_rate>1000</real_time_update_rate>
+        </physics>
+
+        <gravity>0 0 -9.81</gravity>
+
+        <include>
+            <uri>model://ground_plane</uri>
+        </include>
+
+        <include>
+            <uri>model://sun</uri>
+        </include>
+
+        <!-- START: A = (-4, -3) -->
+        <model name="start_zone">
+            <static>true</static>
+
+            <pose>-4 -3 0.01 0 0 0</pose>
+
+            <link name="link">
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>1 1 0.02</size>
+                        </box>
+                    </geometry>
+
+                    <material>
+                        <script>
+                            <uri>file://media/materials/scripts/gazebo.material</uri>
+                            <name>Gazebo/Green</name>
+                        </script>
+                    </material>
+                </visual>
+            </link>
+        </model>
+
+        <!-- FINISH: B = (4, 3) -->
+        <model name="finish_zone">
+            <static>true</static>
+
+            <pose>4 3 0.01 0 0 0</pose>
+
+            <link name="link">
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>1 1 0.02</size>
+                        </box>
+                    </geometry>
+
+                    <material>
+                        <script>
+                            <uri>file://media/materials/scripts/gazebo.material</uri>
+                            <name>Gazebo/Red</name>
+                        </script>
+                    </material>
+                </visual>
+            </link>
+        </model>
+
+        <!-- Obstacle 1 -->
+        <model name="obstacle_1">
+            <static>true</static>
+
+            <pose>-1.8 -1.4 0.5 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>2.5 0.5 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>2.5 0.5 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+        <!-- Obstacle 2 -->
+        <model name="obstacle_2">
+            <static>true</static>
+
+            <pose>1.0 0.5 0.5 0 0 0.65</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>2.5 0.5 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>2.5 0.5 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+        <!-- Obstacle 3 -->
+        <model name="obstacle_3">
+            <static>true</static>
+
+            <pose>2.8 2.0 0.6 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <cylinder>
+                            <radius>0.45</radius>
+                            <length>1.2</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <cylinder>
+                            <radius>0.45</radius>
+                            <length>1.2</length>
+                        </cylinder>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+        <!-- ========================================================= -->
+        <!-- Outer walls for SLAM                                      -->
+        <!-- ========================================================= -->
+
+        <model name="wall_north">
+            <static>true</static>
+
+            <pose>0 4.0 0.5 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>10.0 0.20 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>10.0 0.20 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+
+        <model name="wall_south">
+            <static>true</static>
+
+            <pose>0 -4.0 0.5 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>10.0 0.20 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>10.0 0.20 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+
+        <model name="wall_east">
+            <static>true</static>
+
+            <pose>5.0 0 0.5 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>0.20 8.0 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>0.20 8.0 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+
+        <model name="wall_west">
+            <static>true</static>
+
+            <pose>-5.0 0 0.5 0 0 0</pose>
+
+            <link name="link">
+
+                <collision name="collision">
+                    <geometry>
+                        <box>
+                            <size>0.20 8.0 1.0</size>
+                        </box>
+                    </geometry>
+                </collision>
+
+                <visual name="visual">
+                    <geometry>
+                        <box>
+                            <size>0.20 8.0 1.0</size>
+                        </box>
+                    </geometry>
+                </visual>
+
+            </link>
+        </model>
+
+        <model name="maze_baffle_west">
+            <static>true</static>
+            <pose>-2.3 1.8 0.5 0 0 0</pose>
+            <link name="link">
+                <collision name="collision"><geometry><box><size>0.3 2.4 1</size></box></geometry></collision>
+                <visual name="visual">
+                    <geometry><box><size>0.3 2.4 1</size></box></geometry>
+                    <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+                </visual>
+            </link>
+        </model>
+
+        <model name="maze_baffle_north">
+            <static>true</static>
+            <pose>0 2.8 0.5 0 0 0</pose>
+            <link name="link">
+                <collision name="collision"><geometry><box><size>2 0.3 1</size></box></geometry></collision>
+                <visual name="visual">
+                    <geometry><box><size>2 0.3 1</size></box></geometry>
+                    <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+                </visual>
+            </link>
+        </model>
+        <gui>
+            <camera name="overview">
+                <pose>0 -8 11 0 0.94 1.5708</pose>
+            </camera>
+        </gui>
+    </world>
+
+</sdf>

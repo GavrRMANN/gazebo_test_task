@@ -1,0 +1,26 @@
+gps_reference:
+  latitude: 55.0
+  longitude: 37.0
+  altitude: 100.0
+  heading_deg: 0.0
+startup_timeout: 90
+goal_timeout: 120
+waypoints:
+- latitude: 55.0
+  longitude: 37.0000562543
+  yaw: 0
+- latitude: 55.0
+  longitude: 37.0000187514
+  yaw: 0.96
+- latitude: 54.9999838312
+  longitude: 37.0
+  yaw: 0.3
+- latitude: 54.9999793398
+  longitude: 36.9999742168
+  yaw: 0.79
+- latitude: 54.9999730519
+  longitude: 36.9999624972
+  yaw: 0
+- latitude: 54.9999730519
+  longitude: 36.9999374953
+  yaw: 0

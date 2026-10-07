@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="sensor_suite">
+
+
+        <link name="lidar_link">
+
+            <visual>
+
+                <geometry>
+                    <cylinder
+                        radius="0.04"
+                        length="0.05"/>
+                </geometry>
+
+                <material name="lidar_black">
+                    <color rgba="0.05 0.05 0.05 1.0"/>
+                </material>
+
+            </visual>
+
+            <collision>
+
+                <geometry>
+                    <cylinder
+                        radius="0.04"
+                        length="0.05"/>
+                </geometry>
+
+            </collision>
+
+            <inertial>
+
+                <mass value="0.20"/>
+
+                <inertia
+                    ixx="0.000113"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.000113"
+                    iyz="0"
+                    izz="0.000160"/>
+
+            </inertial>
+
+        </link>
+
+        <joint
+            name="lidar_joint"
+            type="fixed">
+
+            <parent link="base_link"/>
+            <child link="lidar_link"/>
+
+            <origin
+                xyz="0 0 0.115"
+                rpy="0 0 0"/>
+
+        </joint>
+
+
+        <gazebo reference="lidar_link">
+
+            <sensor
+                name="lidar_sensor"
+                type="ray">
+
+                <always_on>true</always_on>
+
+                <visualize>false</visualize>
+
+                <update_rate>10</update_rate>
+
+                <ray>
+
+                    <scan>
+
+                        <horizontal>
+
+                            <samples>360</samples>
+
+                            <resolution>1.0</resolution>
+
+                            <min_angle>
+                                -3.141592653589793
+                            </min_angle>
+
+                            <max_angle>
+                                3.141592653589793
+                            </max_angle>
+
+                        </horizontal>
+
+                    </scan>
+
+                    <range>
+
+                        <min>0.10</min>
+
+                        <max>8.0</max>
+
+                        <resolution>0.01</resolution>
+
+                    </range>
+
+
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.0</stddev>
+                    </noise>
+
+                </ray>
+
+                <plugin
+                    name="lidar_ros_plugin"
+                    filename="libgazebo_ros_ray_sensor.so">
+
+                    <ros>
+                        <remapping>
+                            ~/out:=/scan
+                        </remapping>
+                    </ros>
+
+                    <output_type>
+                        sensor_msgs/LaserScan
+                    </output_type>
+
+                    <frame_name>
+                        lidar_link
+                    </frame_name>
+
+                </plugin>
+
+            </sensor>
+
+        </gazebo>
+
+
+        <link name="camera_link">
+
+            <visual>
+
+                <geometry>
+                    <box size="0.04 0.08 0.04"/>
+                </geometry>
+
+                <material name="camera_gray">
+                    <color rgba="0.20 0.20 0.20 1.0"/>
+                </material>
+
+            </visual>
+
+            <collision>
+
+                <geometry>
+                    <box size="0.04 0.08 0.04"/>
+                </geometry>
+
+            </collision>
+
+            <inertial>
+
+                <mass value="0.15"/>
+
+                <inertia
+                    ixx="0.00010"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.00004"
+                    iyz="0"
+                    izz="0.00010"/>
+
+            </inertial>
+
+        </link>
+
+        <joint
+            name="camera_joint"
+            type="fixed">
+
+            <parent link="base_link"/>
+            <child link="camera_link"/>
+
+            <origin
+                xyz="0.245 0 0.01"
+                rpy="0 0 0"/>
+
+        </joint>
+
+
+        <link name="camera_optical_frame"/>
+
+        <joint
+            name="camera_optical_joint"
+            type="fixed">
+
+            <parent link="camera_link"/>
+            <child link="camera_optical_frame"/>
+
+            <origin
+                xyz="0 0 0"
+                rpy="-1.57079632679 0 -1.57079632679"/>
+
+        </joint>
+
+        <gazebo reference="camera_link">
+
+            <sensor
+                name="depth_camera"
+                type="depth">
+
+                <always_on>true</always_on>
+
+                <visualize>true</visualize>
+
+                <update_rate>5</update_rate>
+
+                <camera name="depth_camera">
+
+                    <horizontal_fov>
+                        1.0472
+                    </horizontal_fov>
+
+                    <image>
+
+                        <width>320</width>
+
+                        <height>240</height>
+
+                        <format>
+                            R8G8B8
+                        </format>
+
+                    </image>
+
+                    <clip>
+
+                        <near>0.10</near>
+
+                        <far>8.0</far>
+
+                    </clip>
+
+                    <noise>
+
+                        <type>gaussian</type>
+
+                        <mean>0.0</mean>
+
+                        <stddev>0.002</stddev>
+
+                    </noise>
+
+                </camera>
+
+                <plugin
+                    name="depth_camera_ros_plugin"
+                    filename="libgazebo_ros_camera.so">
+
+                    <ros>
+                        <namespace>/camera</namespace>
+                    </ros>
+
+                    <camera_name>
+                        depth_camera
+                    </camera_name>
+
+                    <frame_name>
+                        camera_optical_frame
+                    </frame_name>
+
+                    <min_depth>
+                        0.10
+                    </min_depth>
+
+                    <max_depth>
+                        8.0
+                    </max_depth>
+
+                </plugin>
+
+            </sensor>
+
+        </gazebo>
+
+
+        <link name="gps_link">
+
+            <visual>
+
+                <geometry>
+                    <box size="0.05 0.05 0.02"/>
+                </geometry>
+
+                <material name="gps_white">
+                    <color rgba="0.8 0.8 0.8 1.0"/>
+                </material>
+
+            </visual>
+
+            <collision>
+
+                <geometry>
+                    <box size="0.05 0.05 0.02"/>
+                </geometry>
+
+            </collision>
+
+            <inertial>
+
+                <mass value="0.05"/>
+
+                <inertia
+                    ixx="0.000011"
+                    ixy="0"
+                    ixz="0"
+                    iyy="0.000011"
+                    iyz="0"
+                    izz="0.000021"/>
+
+            </inertial>
+
+        </link>
+
+        <joint
+            name="gps_joint"
+            type="fixed">
+
+            <parent link="base_link"/>
+            <child link="gps_link"/>
+
+            <origin
+                xyz="-0.10 0 0.075"
+                rpy="0 0 0"/>
+
+        </joint>
+
+        <gazebo reference="gps_link">
+
+            <sensor
+                name="gps_sensor"
+                type="gps">
+
+                <always_on>true</always_on>
+
+                <update_rate>5</update_rate>
+
+                <gps>
+
+                    <position_sensing>
+
+                        <horizontal>
+
+                            <noise type="gaussian">
+
+                                <mean>0.0</mean>
+
+                                <stddev>0.00001</stddev>
+
+                            </noise>
+
+                        </horizontal>
+
+                        <vertical>
+
+                            <noise type="gaussian">
+
+                                <mean>0.0</mean>
+
+                                <stddev>0.00001</stddev>
+
+                            </noise>
+
+                        </vertical>
+
+                    </position_sensing>
+
+                </gps>
+
+                <plugin
+                    name="gps_ros_plugin"
+                    filename="libgazebo_ros_gps_sensor.so">
+
+                    <ros>
+
+                        <remapping>
+                            ~/out:=/gps/fix
+                        </remapping>
+
+                    </ros>
+
+                    <frame_name>
+                        gps_link
+                    </frame_name>
+
+                </plugin>
+
+            </sensor>
+
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>
