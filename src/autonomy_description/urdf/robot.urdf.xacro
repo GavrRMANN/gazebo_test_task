@@ -4,9 +4,6 @@
     name="autonomy_robot"
     xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- ========================================================= -->
-    <!-- Base dimensions                                           -->
-    <!-- ========================================================= -->
 
     <xacro:property
         name="base_length"
@@ -24,14 +21,10 @@
         name="base_mass"
         value="8.0"/>
 
-    <!-- Base center height above ground -->
     <xacro:property
         name="base_center_z"
         value="0.10"/>
 
-    <!-- ========================================================= -->
-    <!-- Wheels                                                    -->
-    <!-- ========================================================= -->
 
     <xacro:property
         name="wheel_radius"
@@ -45,7 +38,6 @@
         name="wheel_mass"
         value="0.8"/>
 
-    <!-- Left-right distance -->
     <xacro:property
         name="wheel_separation"
         value="0.35"/>
@@ -54,7 +46,6 @@
         name="wheel_y"
         value="${wheel_separation / 2.0}"/>
 
-    <!-- Front-rear distance -->
     <xacro:property
         name="wheel_base"
         value="0.32"/>
@@ -63,14 +54,10 @@
         name="wheel_x"
         value="${wheel_base / 2.0}"/>
 
-    <!-- Relative to base_link -->
     <xacro:property
         name="wheel_z"
         value="${wheel_radius - base_center_z}"/>
 
-    <!-- ========================================================= -->
-    <!-- Include sub-models                                        -->
-    <!-- ========================================================= -->
 
     <xacro:include
         filename="$(find autonomy_description)/urdf/base.xacro"/>
@@ -81,9 +68,6 @@
     <xacro:include
         filename="$(find autonomy_description)/urdf/gazebo_plugins.xacro"/>
 
-    <!-- ========================================================= -->
-    <!-- Build robot                                               -->
-    <!-- ========================================================= -->
 
     <xacro:mobile_base/>
 

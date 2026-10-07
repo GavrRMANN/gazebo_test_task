@@ -4,9 +4,6 @@
 
     <xacro:macro name="sensor_suite">
 
-        <!-- ===================================================== -->
-        <!-- LiDAR                                                 -->
-        <!-- ===================================================== -->
 
         <link name="lidar_link">
 
@@ -58,12 +55,11 @@
             <child link="lidar_link"/>
 
             <origin
-                xyz="0 0 0.085"
+                xyz="0 0 0.115"
                 rpy="0 0 0"/>
 
         </joint>
 
-        <!-- Gazebo LiDAR -->
 
         <gazebo reference="lidar_link">
 
@@ -73,7 +69,6 @@
 
                 <always_on>true</always_on>
 
-                <!-- Gazebo rays visually rendering is unnecessary -->
                 <visualize>false</visualize>
 
                 <update_rate>10</update_rate>
@@ -110,10 +105,6 @@
 
                     </range>
 
-                    <!--
-                        For the first mapping test we deliberately use
-                        an ideal simulated LiDAR.
-                    -->
 
                     <noise>
                         <type>gaussian</type>
@@ -147,9 +138,6 @@
 
         </gazebo>
 
-        <!-- ===================================================== -->
-        <!-- Depth camera                                          -->
-        <!-- ===================================================== -->
 
         <link name="camera_link">
 
@@ -202,13 +190,6 @@
 
         </joint>
 
-        <!--
-            REP-103 style optical camera frame:
-
-            Z -> optical forward
-            X -> optical right
-            Y -> optical down
-        -->
 
         <link name="camera_optical_frame"/>
 
@@ -235,7 +216,7 @@
 
                 <visualize>true</visualize>
 
-                <update_rate>15</update_rate>
+                <update_rate>5</update_rate>
 
                 <camera name="depth_camera">
 
@@ -245,9 +226,9 @@
 
                     <image>
 
-                        <width>640</width>
+                        <width>320</width>
 
-                        <height>480</height>
+                        <height>240</height>
 
                         <format>
                             R8G8B8
@@ -305,9 +286,6 @@
 
         </gazebo>
 
-        <!-- ===================================================== -->
-        <!-- GPS                                                   -->
-        <!-- ===================================================== -->
 
         <link name="gps_link">
 

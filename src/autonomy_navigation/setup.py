@@ -12,6 +12,7 @@ setup(
     version="0.1.0",
 
     packages=find_packages(),
+    py_modules=["waypoint_mission", "gps_coordinates", "simulation_ready"],
 
     data_files=[
         (
@@ -50,6 +51,15 @@ setup(
             os.path.join(
                 "share",
                 package_name,
+                "rviz",
+            ),
+            glob("rviz/*.rviz"),
+        ),
+
+        (
+            os.path.join(
+                "share",
+                package_name,
                 "maps",
             ),
             glob("maps/*"),
@@ -72,6 +82,8 @@ setup(
 
     entry_points={
         "console_scripts": [
+            "waypoint_mission = waypoint_mission:main",
+            "simulation_ready = simulation_ready:main",
         ],
     },
 )

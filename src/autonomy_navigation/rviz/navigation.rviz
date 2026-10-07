@@ -1,0 +1,124 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: nav2_rviz_plugins/Navigation 2
+    Name: Navigation 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Map
+      Name: Map
+      Enabled: true
+      Alpha: 0.8
+      Color Scheme: map
+      Draw Behind: true
+      Topic:
+        Value: /map
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+    - Class: rviz_default_plugins/RobotModel
+      Name: Robot
+      Enabled: true
+      Visual Enabled: true
+      Collision Enabled: false
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Depth: 1
+    - Class: rviz_default_plugins/Map
+      Name: Local obstacles
+      Enabled: true
+      Alpha: 0.45
+      Color Scheme: costmap
+      Topic:
+        Value: /local_costmap/costmap
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+    - Class: rviz_default_plugins/Path
+      Name: Planned path
+      Enabled: true
+      Color: 255; 180; 0
+      Line Style: Lines
+      Line Width: 0.04
+      Topic:
+        Value: /plan
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 1
+    - Class: rviz_default_plugins/LaserScan
+      Name: LiDAR
+      Enabled: true
+      Color Transformer: FlatColor
+      Color: 0; 170; 255
+      Position Transformer: XYZ
+      Style: Points
+      Size (Pixels): 2
+      Topic:
+        Value: /scan
+        Reliability Policy: Best Effort
+        Durability Policy: Volatile
+        Depth: 5
+    - Class: rviz_default_plugins/Image
+      Name: Astra depth
+      Enabled: true
+      Normalize Range: false
+      Min Value: 0
+      Max Value: 8
+      Median window: 5
+      Topic:
+        Value: /camera/depth_camera/depth/image_raw
+        Reliability Policy: Best Effort
+        Durability Policy: Volatile
+        Depth: 1
+    - Class: rviz_default_plugins/Pose
+      Name: GPS position
+      Enabled: true
+      Color: 200; 0; 255
+      Shape: Axes
+      Axes Length: 0.25
+      Axes Radius: 0.02
+      Topic:
+        Value: /mission/gps_pose
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+        Depth: 1
+    - Class: rviz_default_plugins/MarkerArray
+      Name: GPS waypoints
+      Enabled: true
+      Topic:
+        Value: /mission/waypoints
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        Depth: 1
+  Enabled: true
+  Global Options:
+    Fixed Frame: map
+    Background Color: 45; 45; 48
+    Frame Rate: 10
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic:
+        Value: /initialpose
+    - Class: nav2_rviz_plugins/GoalTool
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Name: Current View
+      Scale: 40
+      Angle: 0
+      X: 0
+      Y: 0
+      Target Frame: <Fixed Frame>
+Window Geometry:
+  Width: 840
+  Height: 850
+  X: 760
+  Y: 0

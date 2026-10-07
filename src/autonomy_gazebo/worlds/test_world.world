@@ -284,6 +284,34 @@
             </link>
         </model>
 
+        <model name="maze_baffle_west">
+            <static>true</static>
+            <pose>-2.3 1.8 0.5 0 0 0</pose>
+            <link name="link">
+                <collision name="collision"><geometry><box><size>0.3 2.4 1</size></box></geometry></collision>
+                <visual name="visual">
+                    <geometry><box><size>0.3 2.4 1</size></box></geometry>
+                    <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+                </visual>
+            </link>
+        </model>
+
+        <model name="maze_baffle_north">
+            <static>true</static>
+            <pose>0 2.8 0.5 0 0 0</pose>
+            <link name="link">
+                <collision name="collision"><geometry><box><size>2 0.3 1</size></box></geometry></collision>
+                <visual name="visual">
+                    <geometry><box><size>2 0.3 1</size></box></geometry>
+                    <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Orange</name></script></material>
+                </visual>
+            </link>
+        </model>
+        <gui>
+            <camera name="overview">
+                <pose>0 -8 11 0 0.94 1.5708</pose>
+            </camera>
+        </gui>
     </world>
 
 </sdf>

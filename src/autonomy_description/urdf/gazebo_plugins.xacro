@@ -9,69 +9,42 @@
         </gazebo>
 
         <gazebo reference="front_left_wheel_link">
-
             <material>Gazebo/Black</material>
 
-            <!--
-                X = rolling direction
-                Y = lateral sliding direction
-            -->
-
             <fdir1>1 0 0</fdir1>
-
             <mu1>1.0</mu1>
             <mu2>0.05</mu2>
 
             <kp>1000000.0</kp>
             <kd>100.0</kd>
-
         </gazebo>
-
 
         <gazebo reference="front_right_wheel_link">
-
             <material>Gazebo/Black</material>
-
             <fdir1>1 0 0</fdir1>
-
             <mu1>1.0</mu1>
             <mu2>0.05</mu2>
-
             <kp>1000000.0</kp>
             <kd>100.0</kd>
-
         </gazebo>
-
 
         <gazebo reference="rear_left_wheel_link">
-
             <material>Gazebo/Black</material>
-
             <fdir1>1 0 0</fdir1>
-
             <mu1>1.0</mu1>
             <mu2>0.05</mu2>
-
             <kp>1000000.0</kp>
             <kd>100.0</kd>
-
         </gazebo>
-
 
         <gazebo reference="rear_right_wheel_link">
-
             <material>Gazebo/Black</material>
-
             <fdir1>1 0 0</fdir1>
-
             <mu1>1.0</mu1>
             <mu2>0.05</mu2>
-
             <kp>1000000.0</kp>
             <kd>100.0</kd>
-
         </gazebo>
-
 
         <gazebo reference="lidar_link">
             <material>Gazebo/Black</material>
@@ -86,156 +59,52 @@
         </gazebo>
 
 
-        <!-- ========================================================= -->
-        <!-- Four wheel skid-steer drive                               -->
-        <!-- ========================================================= -->
 
         <gazebo>
-
             <plugin
                 name="skid_steer_drive"
                 filename="libgazebo_ros_diff_drive.so">
 
-                <!-- ================================================= -->
-                <!-- ROS                                                -->
-                <!-- ================================================= -->
-
                 <ros>
-
                     <namespace>/</namespace>
 
-                    <!--
-                        ROS 2 gazebo_ros_diff_drive uses the standard
-                        cmd_vel and odom topics. Use remapping if custom
-                        names are required.
-                    -->
-
-                    <remapping>
-                        cmd_vel:=/cmd_vel
-                    </remapping>
-
-                    <remapping>
-                        odom:=/odom
-                    </remapping>
-
+                    <remapping>cmd_vel:=/cmd_vel_safe</remapping>
+                    <remapping>odom:=/odom</remapping>
                 </ros>
-
-
-                <!-- ================================================= -->
-                <!-- Update rate                                       -->
-                <!-- ================================================= -->
 
                 <update_rate>50</update_rate>
 
-
-                <!-- ================================================= -->
-                <!-- Four wheels                                       -->
-                <!-- ================================================= -->
-
                 <num_wheel_pairs>2</num_wheel_pairs>
 
-                <!--
-                    Pair 1: front wheels
-                -->
+                <left_joint>front_left_wheel_joint</left_joint>
+                <right_joint>front_right_wheel_joint</right_joint>
 
-                <left_joint>
-                    front_left_wheel_joint
-                </left_joint>
+                <left_joint>rear_left_wheel_joint</left_joint>
+                <right_joint>rear_right_wheel_joint</right_joint>
 
-                <right_joint>
-                    front_right_wheel_joint
-                </right_joint>
+                <wheel_separation>${wheel_separation}</wheel_separation>
+                <wheel_separation>${wheel_separation}</wheel_separation>
 
-                <!--
-                    Pair 2: rear wheels
-                -->
+                <wheel_diameter>${2.0 * wheel_radius}</wheel_diameter>
+                <wheel_diameter>${2.0 * wheel_radius}</wheel_diameter>
 
-                <left_joint>
-                    rear_left_wheel_joint
-                </left_joint>
+                <max_wheel_torque>20.0</max_wheel_torque>
+                <max_wheel_acceleration>3.0</max_wheel_acceleration>
 
-                <right_joint>
-                    rear_right_wheel_joint
-                </right_joint>
-
-
-                <!-- ================================================= -->
-                <!-- Geometry                                          -->
-                <!-- ================================================= -->
-
-                <!-- Front pair -->
-
-                <wheel_separation>
-                    ${wheel_separation}
-                </wheel_separation>
-
-                <!-- Rear pair -->
-
-                <wheel_separation>
-                    ${wheel_separation}
-                </wheel_separation>
-
-
-                <!-- Front wheels -->
-
-                <wheel_diameter>
-                    ${2.0 * wheel_radius}
-                </wheel_diameter>
-
-                <!-- Rear wheels -->
-
-                <wheel_diameter>
-                    ${2.0 * wheel_radius}
-                </wheel_diameter>
-
-
-                <!-- ================================================= -->
-                <!-- Motor limits                                      -->
-                <!-- ================================================= -->
-
-                <max_wheel_torque>
-                    20.0
-                </max_wheel_torque>
-
-                <max_wheel_acceleration>
-                    3.0
-                </max_wheel_acceleration>
-
-
-                <!-- ================================================= -->
-                <!-- Odometry                                          -->
-                <!-- ================================================= -->
+                <odometry_source>1</odometry_source>
 
                 <publish_odom>true</publish_odom>
-
                 <publish_odom_tf>true</publish_odom_tf>
-
-                <!--
-                    Wheel TF will be generated from /joint_states by
-                    robot_state_publisher instead.
-                -->
-
                 <publish_wheel_tf>false</publish_wheel_tf>
 
-                <odometry_frame>
-                    odom
-                </odometry_frame>
-
-                <robot_base_frame>
-                    base_footprint
-                </robot_base_frame>
-
+                <odometry_frame>odom</odometry_frame>
+                <robot_base_frame>base_footprint</robot_base_frame>
             </plugin>
-
         </gazebo>
 
 
-        <!-- ========================================================= -->
-        <!-- Joint state publisher                                    -->
-        <!-- ========================================================= -->
 
         <gazebo>
-
             <plugin
                 name="joint_state_publisher"
                 filename="libgazebo_ros_joint_state_publisher.so">
@@ -246,24 +115,11 @@
 
                 <update_rate>30</update_rate>
 
-                <joint_name>
-                    front_left_wheel_joint
-                </joint_name>
-
-                <joint_name>
-                    front_right_wheel_joint
-                </joint_name>
-
-                <joint_name>
-                    rear_left_wheel_joint
-                </joint_name>
-
-                <joint_name>
-                    rear_right_wheel_joint
-                </joint_name>
-
+                <joint_name>front_left_wheel_joint</joint_name>
+                <joint_name>front_right_wheel_joint</joint_name>
+                <joint_name>rear_left_wheel_joint</joint_name>
+                <joint_name>rear_right_wheel_joint</joint_name>
             </plugin>
-
         </gazebo>
 
     </xacro:macro>

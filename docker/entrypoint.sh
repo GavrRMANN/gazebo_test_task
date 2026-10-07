@@ -8,4 +8,6 @@ if [ -f /workspace/install/setup.bash ]; then
     source /workspace/install/setup.bash
 fi
 
+source /opt/tf2_compat/setup.bash
+
 exec "$@"
